@@ -1,5 +1,5 @@
 {
-  "name": "schemas",
+  "name": "@vandelay-labs/schemas",
   "version": "1.0.0",
   "scripts": {
     "build": "npm run build:clean && tsc --build",
