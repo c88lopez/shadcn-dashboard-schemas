@@ -9,11 +9,11 @@ export const TeamSchema = z.object({
 });
 
 export const TeamCreateSchema = z.object({
-  username: TeamSchema.shape.name,
+  name: TeamSchema.shape.name,
 });
 
 export const TeamUpdateSchema = z.object({
-  username: TeamSchema.shape.name,
+  name: TeamSchema.shape.name,
 });
 
 export type Team = z.infer<typeof TeamSchema>;
