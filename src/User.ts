@@ -1,4 +1,5 @@
 import { z } from 'zod';
+import { UserGroupSchema } from './UserGroup';
 
 export const UserSchema = z.object({
   cuid: z.string(),
@@ -10,6 +11,7 @@ export const UserSchema = z.object({
   password: z
     .string()
     .min(8, { message: 'password must be at least 8 characters' }),
+  groups: z.array(UserGroupSchema).optional(),
 });
 
 export const UserCreateSchema = z.object({
@@ -23,3 +25,5 @@ export const UserUpdateSchema = z.object({
   username: UserSchema.shape.username,
   password: UserSchema.shape.password.optional().or(z.literal('')),
 });
+
+export type User = z.infer<typeof UserSchema>;
