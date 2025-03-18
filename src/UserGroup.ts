@@ -1,6 +1,7 @@
 import { z } from 'zod';
+import { User, UserSchema } from './User';
 
-export const UserGroupSchema = z.object({
+const baseUserGroupSchema = z.object({
   cuid: z.string(),
   name: z
     .string()
@@ -8,12 +9,21 @@ export const UserGroupSchema = z.object({
     .max(20, { message: 'group name must be at most 20 characters' }),
 });
 
+type UserGroupWithUsers = z.infer<typeof baseUserGroupSchema> & {
+  users: User[];
+};
+
+export const UserGroupSchema: z.ZodType<UserGroupWithUsers> =
+  baseUserGroupSchema.extend({
+    users: z.lazy(() => UserSchema.array()),
+  });
+
 export const UserGroupCreateSchema = z.object({
-  name: UserGroupSchema.shape.name,
+  name: baseUserGroupSchema.shape.name,
 });
 
 export const UserGroupUpdateSchema = z.object({
-  name: UserGroupSchema.shape.name,
+  name: baseUserGroupSchema.shape.name,
 });
 
 export type UserGroup = z.infer<typeof UserGroupSchema>;

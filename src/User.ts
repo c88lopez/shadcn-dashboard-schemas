@@ -1,7 +1,7 @@
 import { z } from 'zod';
-import { UserGroupSchema } from './UserGroup';
+import { UserGroup, UserGroupSchema } from './UserGroup';
 
-export const UserSchema = z.object({
+const baseUserSchema = z.object({
   cuid: z.string(),
   email: z.string().email({ message: 'invalid email' }),
   username: z
@@ -11,19 +11,26 @@ export const UserSchema = z.object({
   password: z
     .string()
     .min(8, { message: 'password must be at least 8 characters' }),
-  groups: z.array(UserGroupSchema).optional(),
+});
+
+type UserWithGroups = z.infer<typeof baseUserSchema> & {
+  groups: UserGroup[];
+};
+
+export const UserSchema: z.ZodType<UserWithGroups> = baseUserSchema.extend({
+  groups: z.lazy(() => UserGroupSchema.array()),
 });
 
 export const UserCreateSchema = z.object({
-  email: UserSchema.shape.email,
-  username: UserSchema.shape.username,
-  password: UserSchema.shape.password,
+  email: baseUserSchema.shape.email,
+  username: baseUserSchema.shape.username,
+  password: baseUserSchema.shape.password,
 });
 
 export const UserUpdateSchema = z.object({
-  email: UserSchema.shape.email,
-  username: UserSchema.shape.username,
-  password: UserSchema.shape.password.optional().or(z.literal('')),
+  email: baseUserSchema.shape.email,
+  username: baseUserSchema.shape.username,
+  password: baseUserSchema.shape.password.optional().or(z.literal('')),
 });
 
 export type User = z.infer<typeof UserSchema>;
