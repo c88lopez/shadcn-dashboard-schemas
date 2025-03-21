@@ -2,7 +2,7 @@ import { z } from 'zod';
 import { User, UserSchema } from './User';
 
 const baseUserGroupSchema = z.object({
-  cuid: z.string(),
+  cuid: z.string().cuid(),
   name: z
     .string()
     .min(2, { message: 'group name must be at least 2 characters' })

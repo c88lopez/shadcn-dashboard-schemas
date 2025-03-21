@@ -2,7 +2,7 @@ import { z } from 'zod';
 import { UserGroup, UserGroupSchema } from './UserGroup';
 
 const baseUserSchema = z.object({
-  cuid: z.string(),
+  cuid: z.string().cuid(),
   email: z.string().email({ message: 'invalid email' }),
   username: z
     .string()
