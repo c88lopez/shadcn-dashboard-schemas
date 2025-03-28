@@ -28,8 +28,8 @@ export const UserCreateSchema = z.object({
 });
 
 export const UserUpdateSchema = z.object({
-  email: baseUserSchema.shape.email,
-  username: baseUserSchema.shape.username,
+  email: baseUserSchema.shape.email.optional(),
+  username: baseUserSchema.shape.username.optional(),
   password: baseUserSchema.shape.password.optional().or(z.literal('')),
 });
 
