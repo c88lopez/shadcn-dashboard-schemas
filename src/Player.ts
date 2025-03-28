@@ -14,7 +14,15 @@ const basePlayerSchema = z.object({
       invalid_type_error: 'last name must be a string',
     })
     .min(2, { message: 'last name must be at least 2 characters' }),
-  dateOfBirth: z.number().optional(),
+  dateOfBirth: z
+    .number()
+    .min(new Date('1900-01-01').getTime(), {
+      message: 'date of birth should be realistic',
+    })
+    .max(new Date().getTime(), {
+      message: 'date of birth should be realistic',
+    })
+    .optional(),
   phoneNumber: z.string().optional(),
   email: z.string().email().optional(),
   instagram: z.string().url().optional(),
