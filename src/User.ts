@@ -7,7 +7,7 @@ const baseUserSchema = z.object({
   username: z
     .string()
     .min(2, { message: 'username must be at least 2 characters' })
-    .max(20, { message: 'username must be at most 20 characters' }),
+    .max(40, { message: 'username must be at most 40 characters' }),
   password: z
     .string()
     .min(8, { message: 'password must be at least 8 characters' }),
