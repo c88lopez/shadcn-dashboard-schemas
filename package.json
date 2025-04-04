@@ -7,9 +7,9 @@
     "build:watch": "npm run build:clean && tsc --watch",
     "test": "jest"
   },
-  "main": "dist/index.js",
+  "main": "dist/src/index.js",
   "exports": {
-    ".": "./dist/index.js"
+    ".": "./dist/src/index.js"
   },
   "author": "",
   "license": "ISC",
