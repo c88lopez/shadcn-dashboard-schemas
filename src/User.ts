@@ -25,12 +25,14 @@ export const UserCreateSchema = z.object({
   email: baseUserSchema.shape.email,
   username: baseUserSchema.shape.username,
   password: baseUserSchema.shape.password,
+  groups: z.array(z.string().cuid()).optional(),
 });
 
 export const UserUpdateSchema = z.object({
   email: baseUserSchema.shape.email.optional(),
   username: baseUserSchema.shape.username.optional(),
   password: baseUserSchema.shape.password.optional().or(z.literal('')),
+  groups: z.array(z.string().cuid()).optional(),
 });
 
 export type User = z.infer<typeof UserSchema>;

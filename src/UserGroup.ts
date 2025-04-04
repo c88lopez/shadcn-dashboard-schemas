@@ -20,10 +20,9 @@ export const UserGroupSchema: z.ZodType<UserGroupWithUsers> =
 
 export const UserGroupCreateSchema = z.object({
   name: baseUserGroupSchema.shape.name,
+  users: z.array(z.string().cuid()).optional(),
 });
 
-export const UserGroupUpdateSchema = z.object({
-  name: baseUserGroupSchema.shape.name,
-});
+export const UserGroupUpdateSchema = UserGroupCreateSchema.partial();
 
 export type UserGroup = z.infer<typeof UserGroupSchema>;
